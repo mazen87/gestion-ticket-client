@@ -55,4 +55,26 @@ class UserController extends AbstractController
             'error' => $error
             ]);
     }
+
+    /**
+     * @Route("/monProfil/{id}" , name="mon-profil" ,requirements={"id"="\d+"} )
+     */
+
+     public function monProfil (User $user , Request $request , EntityManagerInterface $em ){
+            $formMonOrofil = $this->createForm(RegisterUserType::class,$user);
+            $formMonOrofil ->handleRequest($request);
+
+            if($formMonOrofil->isSubmitted() && $formMonOrofil ->isValid()){
+                $em->persist($user);
+                $em->flush();
+    
+                $this->addFlash('succes','Profil a bien été modifié avec succes');
+                return $this->redirectToRoute('home');
+            }
+
+
+        return $this->render('user/inscription.html.twig',[
+            'formInscription' => $formMonOrofil->createView()
+        ]);
+     }
 }

@@ -17,10 +17,15 @@
 {% endif %}
 {% endif %}
 {% do formInscription.status.setRendered() %}
+{% if app.user %}
+<button type="submit" class="btn btn-primary">Valider</button>
+{% else %}
 <button type="submit" class="btn btn-primary">S'inscrire</button>
-
+{% endif %}
 {{ form_end(formInscription)}}
+{% if  app.user is null %}
 <a href={{path('login')}} class="btn btn-dark btn-xs " role="button" aria-disabled="true">Se connecter</a>
+{% endif %}
 {% endblock %}
 
 {% block title %}  {{ parent()}} | Inscription{% endblock %}

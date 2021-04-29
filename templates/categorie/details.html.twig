@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block main %} 
+<h2> Détails de Catégorie</h2>
+
+{{ form_start(categorieForm)}}
+{{ form_widget(categorieForm)}}
+
+
+{% if  categorie.id %}
+<button type="submit" class="btn btn-primary">Modifier</button>
+{% else %}
+<button type="submit" class="btn btn-primary">Ajouter</button>
+{% endif %}
+
+
+{{ form_end(categorieForm)}}
+<a href={{path('categorie-remove',{'id' : categorie.id})}} onClick="return confirm ('veuillez confirmer ?! ')" class="btn btn-dark btn-xs " role="button" aria-disabled="true">Supprimer</a>
+<br>
+<br>
+<br>
+<br>
+{% endblock %}
+
+{% block title %}  {{ parent()}} | Détails de Categorie {% endblock %}

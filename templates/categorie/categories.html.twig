@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block main %} 
+<h2> Catégories</h2>
+{% for categorie in categories %}
+<div>
+{{loop.index}} - {{categorie.title}}
+<a href={{path('categorie-details', {'id': categorie.id})}} class="btn btn-light btn-xs " role="button" aria-disabled="true">Détails</a>
+</div>
+{% endfor %}
+<be>
+<br>
+<br>
+<a href={{path('categorie-add')}} class="btn btn-dark btn-xs " role="button" aria-disabled="true">Ajouter Catégorie</a>
+{% endblock %}
+
+{% block title %}  {{ parent()}} | Catégories{% endblock %}
