@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Ticket;
 use App\Form\TicketFormType;
+use App\Repository\ReponseRepository;
 use App\Repository\TicketRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -54,10 +55,11 @@ class TicketController extends AbstractController
      * @Route("/ticket-details/{id}" ,name="ticket-Details" ,requirements={"id"="\d+"})
      */
 
-     public function ticketDetails (Ticket $ticket , EntityManagerInterface $em , Request $request) {
+     public function ticketDetails (Ticket $ticket , EntityManagerInterface $em , Request $request, ReponseRepository $reponseRep) {
 
         $modifierTicketForm = $this->createForm(TicketFormType::class,$ticket);
         $modifierTicketForm->handleRequest($request);
+        $reponses = $reponseRep->findAllReponses();
 
         if($modifierTicketForm->isSubmitted() && $modifierTicketForm->isValid() ) {
             $ticket->setUser($this->getUser());
@@ -69,7 +71,8 @@ class TicketController extends AbstractController
         }
         return $this->render('ticket/details.html.twig', [
             'modifierTicketForm' => $modifierTicketForm->createView(),
-            'ticket' => $ticket
+            'ticket' => $ticket,
+            'reponses' => $reponses
         ]);
 
      }

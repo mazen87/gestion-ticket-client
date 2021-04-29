@@ -3,7 +3,10 @@
 namespace App\Entity;
 
 use App\Repository\TicketRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=TicketRepository::class)
@@ -19,11 +22,13 @@ class Ticket
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $title;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank()
      */
     private $description;
 
@@ -43,6 +48,16 @@ class Ticket
      * @ORM\Column(type="boolean", options={"default":0})
      */
     private $termine;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Reponse::class, mappedBy="ticket")
+     */
+    private $reponses;
+
+    public function __construct()
+    {
+        $this->reponses = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -105,6 +120,36 @@ class Ticket
     public function setTermine(bool $termine): self
     {
         $this->termine = $termine;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Reponse[]
+     */
+    public function getReponses(): Collection
+    {
+        return $this->reponses;
+    }
+
+    public function addReponse(Reponse $reponse): self
+    {
+        if (!$this->reponses->contains($reponse)) {
+            $this->reponses[] = $reponse;
+            $reponse->setTicket($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReponse(Reponse $reponse): self
+    {
+        if ($this->reponses->removeElement($reponse)) {
+            // set the owning side to null (unless already changed)
+            if ($reponse->getTicket() === $this) {
+                $reponse->setTicket(null);
+            }
+        }
 
         return $this;
     }

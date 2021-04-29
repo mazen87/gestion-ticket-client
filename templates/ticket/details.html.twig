@@ -16,8 +16,25 @@
 {{form_row(modifierTicketForm.categorie)}}
 <button type="submit" class="btn btn-primary">Modifier</button>
 
-{{ form_end(modifierTicketForm)}}
 
+
+{{ form_end(modifierTicketForm)}}
+<a href={{path('reponse', {'id': ticket.id})}} class="btn btn-dark btn-xs " role="button" aria-disabled="true">Répondre</a>
+<br>
+<br>
+<br>
+<div>
+<h3> Réponses</h3>
+<div>
+{% for reponse in reponses %}
+{{" Contenu :" }}{{ reponse.contenu }}<br>
+{{" de:" }}{{ reponse.user.nom  }} {{reponse.user.prenom}} <br>
+{{" le: " }}{{ reponse.dateCreation | date }}<br>
+</div>
+<br>
+{% endfor %}
+
+</div>
 {% endblock %}
 
 {% block title %}  {{ parent()}} | Détails du Ticket{% endblock %}

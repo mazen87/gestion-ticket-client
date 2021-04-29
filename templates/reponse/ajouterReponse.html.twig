@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+{% block main %} 
+<h2> Répondre </h2>
+
+{{ form_start(ajouterReponseForm)}}
+
+{{ form_widget(ajouterReponseForm)}}
+<button type="submit" class="btn btn-primary">Répondre</button>
+
+{{ form_end(ajouterReponseForm)}}
+
+{% endblock %}
+
+{% block title %}  {{ parent()}} | Répondre{% endblock %}

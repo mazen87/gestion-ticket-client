@@ -9,15 +9,18 @@
 {{form_row(formInscription.password)}}
 {{form_row(formInscription.nom)}}
 {{form_row(formInscription.prenom)}}
+{% if app.user %}
 {% if  app.user.status != "cli" %}
 {{form_row(formInscription.status)}}
 {% else %}
 {% do formInscription.status.setRendered() %}
 {% endif %}
+{% endif %}
+{% do formInscription.status.setRendered() %}
 <button type="submit" class="btn btn-primary">S'inscrire</button>
 
 {{ form_end(formInscription)}}
-
+<a href={{path('login')}} class="btn btn-dark btn-xs " role="button" aria-disabled="true">Se connecter</a>
 {% endblock %}
 
 {% block title %}  {{ parent()}} | Inscription{% endblock %}
