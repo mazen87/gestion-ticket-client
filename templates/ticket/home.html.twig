@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block main %} 
+<h2> Tickets</h2>
+{% if app.user.status == "cli" %}
+{% for ticket in mestickets %}
+
+{% if ticket.user.id == app.user.id %}
+<div>
+
+{{" Titre :" }}{{ ticket.title }}<br>
+{{ "Categorie :" }}{{ ticket.categorie.title}}<br>
+{{ " Créateur : "}}  {{ ticket.user.nom}}
+<a href={{path('ticket-Details', {'id': ticket.id})}} class="btn btn-light btn-xs " role="button" aria-disabled="true">Détails</a>
+
+<br><br><br>
+</div>
+{% endif %}
+
+{% endfor %}
+{% endif %}
+{% if app.user.status != "cli" %}
+{% for ticket in mestickets %}
+
+
+<div>
+
+{{" Titre :" }}{{ ticket.title }}<br>
+{{ "Categorie :" }}{{ ticket.categorie.title}}<br>
+{{ " Créateur : "}}  {{ ticket.user.nom}}
+<a href={{path('ticket-Details', {'id': ticket.id})}} class="btn btn-light btn-xs " role="button" aria-disabled="true">Détails</a>
+
+<br><br><br>
+</div>
+{% endfor %}
+{% endif %}
+{% endblock %}
+
+{% block title %}  {{ parent()}} | Tickets{% endblock %}

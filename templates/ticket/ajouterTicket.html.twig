@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block main %} 
+<h2> Ajouter un Ticket</h2>
+
+{{ form_start(ajouterTicketForm)}}
+
+{{form_row(ajouterTicketForm.title)}}
+{{form_row(ajouterTicketForm.description)}}
+{% if ticket.id != 0 %}
+{{form_row(ajouterTicketForm.termine)}}
+{% else %}
+{% do ajouterTicketForm.termine.setRendered() %}
+{% endif %}
+{{form_row(ajouterTicketForm.categorie)}}
+<button type="submit" class="btn btn-primary">Ajouter un Ticket</button>
+
+{{ form_end(ajouterTicketForm)}}
+
+{% endblock %}
+
+{% block title %}  {{ parent()}} | Ajouter un Ticket{% endblock %}

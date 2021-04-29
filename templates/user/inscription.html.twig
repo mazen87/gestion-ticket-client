@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block main %} 
+<h2> Inscription</h2>
+
+{{ form_start(formInscription)}}
+
+{{form_row(formInscription.email)}}
+{{form_row(formInscription.password)}}
+{{form_row(formInscription.nom)}}
+{{form_row(formInscription.prenom)}}
+{% if  app.user.status != "cli" %}
+{{form_row(formInscription.status)}}
+{% else %}
+{% do formInscription.status.setRendered() %}
+{% endif %}
+<button type="submit" class="btn btn-primary">S'inscrire</button>
+
+{{ form_end(formInscription)}}
+
+{% endblock %}
+
+{% block title %}  {{ parent()}} | Inscription{% endblock %}

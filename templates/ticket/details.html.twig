@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block main %} 
+<h2> Détails du Ticket</h2>
+
+{{ form_start(modifierTicketForm)}}
+
+{{form_row(modifierTicketForm.title)}}
+{{form_row(modifierTicketForm.description)}}
+{% if ticket.user.status != "cli" %}
+
+{{form_row(modifierTicketForm.termine)}}
+{% else %}
+{% do modifierTicketForm.termine.setRendered() %}
+{% endif %}
+{{form_row(modifierTicketForm.categorie)}}
+<button type="submit" class="btn btn-primary">Modifier</button>
+
+{{ form_end(modifierTicketForm)}}
+
+{% endblock %}
+
+{% block title %}  {{ parent()}} | Détails du Ticket{% endblock %}
