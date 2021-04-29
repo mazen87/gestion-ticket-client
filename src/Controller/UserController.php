@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\RegisterUserType;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,11 +35,13 @@ class UserController extends AbstractController
 
                 $this->addFlash('succes','votre inscription a été effectuée avec succes');
                 return $this->redirectToRoute('home');
+
             }
 
 
         return $this->render('user/inscription.html.twig', [
-           'formInscription' => $formInscription->createView()
+           'formInscription' => $formInscription->createView(),
+           'user'=> $user
         ]);
     }
 
@@ -77,4 +80,29 @@ class UserController extends AbstractController
             'formInscription' => $formMonOrofil->createView()
         ]);
      }
+
+     /**
+      *@Route("/allProfils"  , name="allProfils")
+      */
+      public function tousLesProfils(UserRepository $userRep ){
+          $users = $userRep->findAll();
+
+          return $this->render('user/tousLesProfils.html.twig',[
+              'users' => $users
+          ]);
+
+      }
+
+      
+     /**
+      *@Route("/allProfils/{id}"  , name="allProfils",requirements={"id"="\d+"} )
+      */
+    /*   public function userDetails(UserRepository $userRep,User $user, EntityManagerInterface $rm, Request $request){
+        
+
+        return $this->render('user/tousLesProfils.html.twig',[
+          
+        ]);
+
+    } */
 }

@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block main %} 
+<h2> Profils</h2>
+{% for user in users %}
+<div>
+{{"Nom : "}} {{user.nom}}<br>
+{{"Prénom : "}} {{user.prenom}}<br><br>
+
+
+<a href={{path('mon-profil', {'id': user.id})}} class="btn btn-light btn-xs " role="button" aria-disabled="true">Détails</a>
+</div>
+{% endfor %}
+<br>
+<br>
+<br>
+{# <a href={{path('categorie-add')}} class="btn btn-dark btn-xs " role="button" aria-disabled="true">Ajouter Catégorie</a> #}
+{% endblock %}
+
+{% block title %}  {{ parent()}} | Catégories{% endblock %}

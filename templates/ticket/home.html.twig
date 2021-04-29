@@ -5,7 +5,7 @@
 {% if app.user.status == "cli" %}
 {% for ticket in mestickets %}
 
-{% if ticket.user.id == app.user.id %}
+{% if ticket.user.id == app.user.id and ticket.termine == "0" %}
 <div>
 
 {{" Titre :" }}{{ ticket.title }}<br>
